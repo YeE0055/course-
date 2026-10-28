@@ -63,3 +63,39 @@
 
 - 模板默认预装核心组件库 `shadcn/ui`，位于`src/components/ui/`目录下
 - Next.js 项目**必须默认**采用 shadcn/ui 组件、风格和规范，**除非用户指定用其他的组件和规范。**
+
+## 考试题库系统
+
+### 功能模块
+- **数据总览** (`/dashboard`) - 数据可视化仪表盘
+- **课程管理** (`/courses`) - 课程 CRUD
+- **章节管理** (`/chapters`) - 课程章节 CRUD
+- **题型管理** (`/question-types`) - 题目类型 CRUD
+- **题库管理** (`/questions`) - 题目 CRUD，关联课程/章节/题型
+- **组卷管理** (`/exam-papers`) - 试卷创建、选题、导出
+
+### 数据库表
+- `courses` - 课程表
+- `chapters` - 章节表（关联 courses）
+- `question_types` - 题型表
+- `questions` - 题目表（关联 courses, chapters, question_types）
+- `exam_papers` - 试卷表（关联 courses）
+- `exam_paper_questions` - 试卷-题目关联表
+
+### API 路由
+- `/api/courses` - GET(列表), POST(创建)
+- `/api/courses/[id]` - PUT(更新), DELETE(删除)
+- `/api/chapters` - GET(列表), POST(创建)
+- `/api/chapters/[id]` - PUT(更新), DELETE(删除)
+- `/api/question-types` - GET(列表), POST(创建)
+- `/api/question-types/[id]` - PUT(更新), DELETE(删除)
+- `/api/questions` - GET(列表+筛选), POST(创建)
+- `/api/questions/[id]` - PUT(更新), DELETE(删除)
+- `/api/exam-papers` - GET(列表), POST(创建)
+- `/api/exam-papers/[id]` - GET(详情), PUT(更新), DELETE(删除)
+- `/api/dashboard` - GET(统计数据)
+
+### 数据库操作
+- 使用 Supabase SDK (`getSupabaseClient()`) 进行 CRUD
+- Schema 定义在 `src/storage/database/shared/schema.ts`
+- 客户端在 `src/storage/database/supabase-client.ts`
